@@ -1,0 +1,4 @@
+dbgdb 70
+hellp 80
+ayaan 180
+hi 80

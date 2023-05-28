@@ -1,0 +1,89 @@
+
+#include <SFML/Graphics.hpp>
+#include<time.h>
+using namespace sf;
+const char title2[] = "Menu Screen";
+
+class Menu
+{
+
+public:
+
+Sprite background; //Game background sprite
+Texture bg_texture;
+
+Menu()
+{
+    bg_texture.loadFromFile("img/background.jpg");
+    background.setTexture(bg_texture);
+    background.setScale(2.15, 1.5);
+}
+
+bool display_menu()
+
+{
+    Font font;
+    font.loadFromFile("Arial.ttf");
+    Text text;												//Text to be used in menu window
+    text.setFont(font);
+    text.setCharacterSize(25);
+    text.setString("Space Shooters\nNew Game: Press Enter\nQuit: Press Escape\nHelp: Press H\n");
+    text.setPosition(0.f, 0.f);
+    
+    Text text2;												//Text to be used in menu window
+    text2.setFont(font);
+    text2.setCharacterSize(25);
+    text2.setString("Our galaxy is attacked by enemies. The enemy invaders beat our squad, they destroyed all of galactica. Space team is waiting for your order. Please command the ship to protect the galaxy and the surrounding asteroids.");
+    text2.setPosition(0.f, 0.f);
+
+    srand(time(0));
+
+    RenderWindow window(VideoMode(780, 780), title2);								//Menu window rendering
+    	while (window.isOpen())
+        {
+           	Event e;
+           	while (window.pollEvent(e))
+           	{ 
+           		if (e.type == Event::Closed)                  
+               		window.close();  
+               				
+               	else if (e.key.code == Keyboard::Escape)
+               		window.close(); 
+               		
+               	else if (e.key.code == Keyboard::H)
+               	{
+               		RenderWindow window2(VideoMode(780, 780), "Help");				//Help window rendering
+           			while (window2.isOpen())
+           			{
+           				Event event;
+           				while (window2.pollEvent(event))
+           				{ 
+           					if (event.type == Event::Closed)                  
+               					window2.close();  
+               				
+               				else if (event.key.code == Keyboard::Escape)
+               					window2.close(); 
+               			}
+               			window2.clear();
+                        window2.draw(background);	
+               			window2.draw(text2); 
+               			window2.display();  
+               		}
+               	}
+          		
+          		else if (e.key.code == Keyboard::Enter)
+          		{
+    				window.close();
+                    return 1;
+                }
+            }
+            window.clear();
+            window.draw(background);
+            window.draw(text);
+            window.display();
+        }
+    return 0;	
+}
+
+
+};
